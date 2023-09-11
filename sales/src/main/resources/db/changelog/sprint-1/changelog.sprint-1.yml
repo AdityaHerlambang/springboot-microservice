@@ -1,0 +1,11 @@
+databaseChangeLog:
+  - changeSet:
+      id: ADT-1
+      author: Adit
+      comment: Create table item
+      changes:
+        - tagDatabase:
+            tag: sprint-1/ADT-1.sql
+        - sqlFile:
+            dbms: postgresql
+            path: db/changelog/sprint-1/ADT-1.sql

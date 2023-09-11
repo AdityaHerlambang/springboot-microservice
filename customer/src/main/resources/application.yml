@@ -1,0 +1,50 @@
+application:
+  database:
+    name: customer
+    host: 127.0.0.1
+    port: 5432
+    username: root
+    password: password
+  kafka:
+    host: localhost
+    port: 9092
+    cluster-servers: localhost:9092
+
+server:
+  port: 8082
+
+file:
+  upload:
+    directory: /images
+
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: 2m
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    username: ${application.database.username}
+    password: ${application.database.password}
+    url: >-
+      jdbc:postgresql://${application.database.host}:${application.database.port}/${application.database.name}?useSSL=false
+      &stringtype=unspecified
+    hikari:
+      connection-timeout: 60000
+      idle-timeout: 300000
+      maximumPoolSize: 5
+      minimumIdle: 3
+  liquibase:
+    change-log: classpath:/db/changelog.yml
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: POSTGRESQL
+    show-sql: false
+    open-in-view: false
+    properties:
+      hibernate:
+        enable_lazy_load_no_trans: true
+        order_inserts: true
+        jdbc:
+          batch_size: 100
